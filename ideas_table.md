@@ -5,3 +5,4 @@
 | StrideSense | Smartwatch gait detects heart failure medication effect absence | 8 | 8 | 9 | 8 | - | [view](ideas/stridesense.md) |
 | FlareCast | Wrist temperature + HRV predicts IBD flares 48–96h early | 8 | 7 | 8 | 7 | - | [view](ideas/flarecast.md) |
 | ExaWave | Overnight acoustic fingerprint predicts COPD exacerbation early | 8 | 8 | 9 | 9 | - | [view](ideas/exawave.md) |
+| LiTrace | Lithium toxicity early warning via typing micro-tremor | 7 | 8 | 8 | 8 | - | [view](ideas/litrace.md) |
