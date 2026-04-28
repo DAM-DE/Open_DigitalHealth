@@ -1,0 +1,30 @@
+# CardioVox
+> Passive speech acoustic analysis during natural phone calls + personalized ML + heart failure decompensation early warning for GKV-enrolled HF patients
+
+## The problem
+Heart failure affects 1.8 million Germans and generates approximately 300,000 hospitalizations annually — the single largest DRG cost driver in the statutory system at ~€4.5 billion per year. Fluid overload decompensation begins accumulating 3–7 days before patients reach clinical threshold, but the 30-day readmission rate remains 25–30% because current post-discharge monitoring tools (daily weight, symptom diaries) require daily patient action that more than 60% of patients skip. No passive, continuous, real-world signal exists between hospital discharge and the next clinic appointment.
+
+## The solution
+CardioVox runs silently as a background service on the patient's existing iPhone or Android device. Every time the patient makes or receives a phone call, leaves a voicemail, or interacts with a voice assistant — events that occur naturally 3–8 times per day — the app captures a 10–30 second acoustic excerpt on-device, processes it entirely locally (no audio ever transmitted), and extracts a composite biomarker vector: harmonic-to-noise ratio, vocal tract resonance profile, fundamental frequency variability, breathiness index, and phonation shimmer. These acoustic properties shift measurably when pulmonary fluid accumulates and alters the moist tissue-to-air interface in the laryngeal and tracheal cavity. Over a 14-day post-discharge calibration window, a personalized transformer-based model builds each patient's individual acoustic baseline — because voices differ enormously between individuals but change predictably within an individual as fluid load increases. When the composite score deviates beyond threshold across three consecutive daily samples, a fluid-risk alert fires to the patient's HF nurse coordinator, triggering a telemedicine weight-and-symptom check before emergency presentation becomes necessary. The patient does nothing; they simply speak on their phone as they always have.
+
+## The Clinical Evidence
+Pulmonary edema increases airway moisture and mucus in the trachea and larynx, changing the acoustic properties of the vocal tract in ways detectable as increased shimmer, reduced harmonic-to-noise ratio, and altered resonance — a biologically plausible and measurable signal. Cordio Medical's prospective VOICE-HF study (published in JACC Heart Failure, 2019) demonstrated that voice biomarker deviation predicted HF hospitalizations 4–24 days in advance with ~79% sensitivity and ~83% specificity in a 40-patient cohort; subsequent work from Mayo Clinic and the Israeli Institute of Technology has replicated the acoustic-fluid link using different feature sets and patient populations, providing independent biological validation.
+
+## Why now
+Lightweight acoustic neural networks (HuBERT-small-class adaptations, custom CNN/LSTM hybrids via TensorFlow Lite 2.14 and Apple Core ML 6) can extract phoneme-level voice features on-device in real time at under 3% CPU overhead — cloud processing was required for equivalent accuracy as recently as 2022. Germany's DMP Herzinsuffizienz program (Disease Management Program for heart failure) already organizes 400,000+ enrolled patients with structured HF nurse coordinator relationships, eliminating the patient-acquisition problem and providing a pre-existing care pathway into which a single alert integrates without building new clinical workflows.
+
+## Who pays and why
+German GKV statutory insurers (AOK, TK, Barmer) pay because each HF hospitalization costs €8,000–20,000 and is explicitly tracked as a readmission quality metric under the DMP Herzinsuffizienz; DiGA reimbursement at €40–60/patient/month is trivially justified against even a 10% reduction in 30-day readmissions among enrolled patients. HF nurse coordinator programs (TK Careline, AOK Curaplan Herzschwäche) purchase CardioVox as the AI triage layer that tells their nurses which patients to call that day rather than calling all patients daily. Pharma companies with outcomes-based contracts for sacubitril/valsartan (Novartis Entresto) and dapagliflozin (AstraZeneca Farxiga) license de-identified longitudinal fluid-burden trajectories as real-world evidence for post-approval outcomes studies. Revenue model: DiGA-listed SaaS per-patient-per-month via GKV + HF nurse program SaaS subscription + pharma RWE data licensing.
+
+## Scores
+| Market | Feasibility | Clinical Impact | Regulatory | Author Score |
+|:---:|:---:|:---:|:---:|:---:|
+| 9 | 8 | 9 | 8 | |
+
+## Biggest risks
+- Cordio Medical's acquisition by Medtronic (2020) validates the market but puts significant IP in the hands of a large competitor; however, Medtronic has not deployed a passive consumer-facing EU product and Cordio's approach required active daily phrase-recording, creating a meaningfully different product surface
+- Training data scarcity: Labeled longitudinal voice recordings from decompensating HF patients are rare; initial model development requires a university hospital partnership (Charité, Universitätsklinikum Hamburg-Eppendorf, or Munich LMU Klinikum) to collect 12+ months of annotated post-discharge audio before sufficient personalized model calibration
+- Microphone background noise in real-world phone calls (traffic, household noise) degrades acoustic biomarker signal quality; mitigation requires robust noise-gating and speaker-separation preprocessing, adding model complexity and increasing false-positive risk if phone call environment is consistently noisy
+
+## Pattern note
+Extends ExaWave's acoustic-signal-for-early-decompensation-warning pattern from overnight passive breathing sounds (COPD) to opportunistic daytime natural speech analysis (heart failure), introducing a wholly new physiological mechanism — pulmonary fluid altering vocal tract resonance — and a different payer lever (DMP Herzinsuffizienz readmission avoidance vs. COPD DMP exacerbation cost).
