@@ -10,3 +10,4 @@
 | NeuralTrace | Smartphone kinematic fingerprint detects pre-motor Parkinson's passively | 9 | 8 | 9 | 8 | 4 | [view](ideas/neuraltrace.md) |
 | CogniMS | Passive phone typing dynamics predict MS relapse 3–5 days early | 8 | 8 | 9 | 7 | 5 | [view](ideas/cognims.md) |
 | MigraCast | Smartwatch + phone passively predicts migraine prodrome 12–24h ahead | 8 | 9 | 8 | 9 | 5 | [view](ideas/migracast.md) |
+| FluidSense | Smart scale bioimpedance + smartwatch predicts CKD fluid overload early | 8 | 8 | 8 | 8 | | [view](ideas/fluidsense.md) |
